@@ -4,10 +4,12 @@
             <p style="color:red;">
                 00:00
             </p>
+            <button @click="timer_loop">Start</button>
         </div>
         <div v-else>
             <p> {{ Math.trunc(minutes) }}:{{ Math.trunc(seconds) }}
             </p>
+            <button @click="stop">Stop</button>
         </div>
 <!--        <small class="tet-muted">Data: {{count}}</small>-->
     </div>
@@ -19,13 +21,18 @@
         props: {
             date: {
                 type: String
+            },
+            dataTimeout: {
+                type: String
             }
         },
         data() {
             return {
                 now: 0,
                 count: Number(this.date),
-                timeStop: 0
+                countTimeout: Number(this.dataTimeout),
+                timeStop: 0,
+                currentTime: 0
             }
         },
         methods: {
@@ -34,9 +41,26 @@
                 this.now = Math.trunc(new Date().getTime() / 1000)
                 //console.log(this.now);
                 setTimeout(this.timer_loop, 1000)
+                this.currentTime = this.count
                 if (this.count < 0){
-                    this.count = this.timeStop
+                    this.count = this.countTimeout
+                    this.countTimeout = 0
+                        if (this.countTimeout < 0){
+                            this.count = this.timeStop
+                        }
                 }
+            },
+            start() {
+                this.timer_loop().start
+            },
+            stop() {
+                this.count = this.timeStop
+            },
+            reset() {
+                this.stop()
+                this.time = 0
+                this.secondes = 0
+                this.minutes = 0
             },
         },
         mounted() {
