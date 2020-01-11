@@ -14,7 +14,6 @@
 
     export default {
         name: "TrainingDisplay",
-        el: '#example-1',
         components: {
             CountdownTimer,
         },

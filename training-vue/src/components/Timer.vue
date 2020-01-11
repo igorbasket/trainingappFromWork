@@ -5,10 +5,12 @@
                 00:00
             </p>
             <button @click="timer_loop">Start</button>
+            <button @click="stop">Stop</button>
         </div>
         <div v-else>
             <p> {{ Math.trunc(minutes) }}:{{ Math.trunc(seconds) }}
             </p>
+            <button @click="timer_loop">Start</button>
             <button @click="stop">Stop</button>
         </div>
 <!--        <small class="tet-muted">Data: {{count}}</small>-->
@@ -51,7 +53,10 @@
                 }
             },
             start() {
-                this.timer_loop().start
+                if (this.count === this.timeStop){
+                    this.count = this.currentTime
+                }
+                this.timer_loop()
             },
             stop() {
                 this.count = this.timeStop
@@ -63,9 +68,9 @@
                 this.minutes = 0
             },
         },
-        mounted() {
-            this.timer_loop()
-        },
+        // mounted() {
+        //     this.timer_loop()
+        // },
         computed: {
             seconds() {
                 return (this.count) % 60
