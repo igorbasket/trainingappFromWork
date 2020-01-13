@@ -11,38 +11,37 @@
                     <span id="middle">:</span>
                     <span id="seconds">{{ seconds | twoDigits }}</span>
                 </div>
-
                 <!--  THE BUTTONS  -->
                 <div id="buttons">
 
                     <!--  START BUTTON    -->
-                    <button
+                    <el-button type="success"
                             id="start"
                             class="button is-dark is-large"
                             @click='startTimer'
                             v-show="showContinue">start
 <!--                        <i class="far fa-play-circle"></i>-->
-                    </button>
+                    </el-button>
 
                     <!--   PAUSE BUTTON   -->
-                    <button
+                    <el-button type="danger"
                             id="stop"
                             class="button is-dark is-large"
                             @click="pauseTimer"
                             v-show='!showContinue'>stop
 <!--                        <i class="far fa-pause-circle"></i>-->
-                    </button>
+                    </el-button>
 
                     <!--  RESET BUTTON   -->
-                    <button
+                    <el-button type="warning"
                             id="reset"
                             class="button is-dark is-large"
                             @click="resetTimer"
                             v-show="showReset">reset
 <!--                        <i class="fas fa-undo"></i>-->
-                    </button>
+                    </el-button>
                 </div>
-
+                <small class="tet-muted">Data: {{date}}</small>
             </div>
         </div>
     </section>
@@ -52,13 +51,21 @@
     const default_title = 'Let the countdown begin!!';
 
     export default {
-        name: "Timer3",
+        name: "CountdownTimer",
         el: '#app',
+        props: {
+            date: {
+                type: String
+            },
+            dataTimeout: {
+                type: String
+            }
+        },
         data() {
             return {
                 message: default_title,
-                minutes: 25,
-                seconds: 0,
+                minutes: Math.floor(Number(((this.date) / 60) % 60)),
+                seconds: Number((this.date) % 60),
                 interval: null,
                 showContinue: true,
                 showReset: false
@@ -66,8 +73,8 @@
         },
         methods: {
             startTimer: function(){
-                this.showContinue = false,
-                    this.showReset = true,
+                this.showContinue = false;
+                    this.showReset = true;
                     this.message = 'Greatness is within sight!!';
                 this.interval = setInterval(() => {
                     if(this.seconds === 0){
@@ -83,16 +90,16 @@
                 },1000)
             },
             pauseTimer: function(){
-                this.showReset = true,
+                this.showReset = true;
                     this.showContinue = true;
                 this.message = 'Never quit, keep going!!';
                 clearInterval(this.interval);
             },
             resetTimer: function(){
                 this.showContinue = true;
-                this.showReset = true,
-                    this.minutes = 25;
-                this.seconds = 0
+                this.showReset = true;
+                    this.minutes = Math.floor(Number(((this.date) / 60) % 60));
+                this.seconds = Number((this.date) % 60);
                 this.message = default_title;
             }
         },

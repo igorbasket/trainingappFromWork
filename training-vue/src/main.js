@@ -11,7 +11,7 @@ import Login from "./components/Login";
 import UserPage from "./components/UserPage";
 import NewTraining from "./components/NewTraining";
 import TrainingDisplay from "./components/TrainingDisplay";
-import Timer3 from "./components/Timer3";
+// import Timer3 from "./components/Timer3";
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
@@ -25,8 +25,8 @@ const routes = [
   {path: "/login", component: Login},
   {path: "/user_page", component: UserPage},
   {path: "/new_train", component: NewTraining},
-  {path: "/train_display", component: TrainingDisplay},
-  {path: "/timer3", component: Timer3}
+  {path: "/train_display", component: TrainingDisplay}
+  // {path: "/timer3", component: Timer3}
 ];
 
 const router = new VueRouter({
