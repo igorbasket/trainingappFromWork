@@ -50,6 +50,7 @@
                         alert('submit!');
                     } else {
                         alert('error submit!!');
+                        this.$router.push('/user_page')  // НУЖНО БУДЕТ УДАЛИТЬ))
                         return false;
                     }
                 });

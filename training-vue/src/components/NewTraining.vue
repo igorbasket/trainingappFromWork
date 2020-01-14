@@ -1,34 +1,36 @@
 <template>
-    <div>
-    <el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="120px" class="demo-dynamic" style="width: 500px" align="center">
-        <el-form-item
-                prop="email"
-                label="Email"
-                :rules="[
-      { required: true, message: 'Please input email address', trigger: 'blur' },
-      { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }
-    ]"
-        >
-            <el-input v-model="dynamicValidateForm.email"></el-input>
+    <div align="center">
+        <i style="font-size: large">Creating a training:</i>
+        <h1/>
+    <el-form :model="newTrainingForm" ref="newTrainingForm" class="demo-dynamic" style="width: 400px" >
+        <el-form-item label="Training name"
+                      :rules="{required: true, message: 'Exercise can not be null', trigger: 'blur'}">
+            <el-input v-model="newTrainingForm.nameTrain"/>
         </el-form-item>
         <el-form-item
-                v-for="(domain, index) in dynamicValidateForm.domains"
-                :label="'Domain' + index"
+                v-for="(domain, index) in newTrainingForm.exercise"
+                :label="'Exercise ' + index "
                 :key="domain.key"
-                :prop="'domains.' + index + '.value'"
                 :rules="{
-      required: true, message: 'domain can not be null', trigger: 'blur'
+      required: true, message: 'Exercise can not be null', trigger: 'blur'
     }"
         >
-            <el-input v-model="domain.value"></el-input><el-button @click.prevent="removeDomain(domain)">Delete</el-button>
+            <el-input placeholder="Input exercise name" v-model="domain.nameEx"/>
+            <el-time-picker placeholder="Pick exercise duration" v-model="domain.timeEx" style="width: 100%;"/>
+<!--            <el-input type="time" v-model="domain.timeEx"></el-input>-->
+            <el-button @click.prevent="removeDomain(domain)">Delete</el-button>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="submitForm('dynamicValidateForm')">Submit</el-button>
-            <el-button @click="addDomain">New domain</el-button>
-            <el-button @click="resetForm('dynamicValidateForm')">Reset</el-button>
+            <el-button type="primary" @click="submitForm('newTrainingForm')">Submit</el-button>
+            <el-button @click="addDomain">New exercise</el-button>
+            <el-button @click="resetForm('newTrainingForm')">Reset</el-button>
         </el-form-item>
-        <small class="tet-muted">Data: {{dynamicValidateForm}}</small>
+        <small class="tet-muted">Data: {{newTrainingForm}}</small>
     </el-form>
+
+
+
+
     </div>
 </template>
 
@@ -37,13 +39,13 @@
         name: "NewTraining",
         data() {
             return {
-                dynamicValidateForm: {
-                    domains: [{
-                        key: 1,
-                        value: ''
+                newTrainingForm: {
+                    exercise: [{
+                        timeEx: 0,
+                        nameEx: '',
                     }],
-                    email: ''
-                }
+                    nameTrain: ''
+                },
             };
         },
         methods: {
@@ -61,18 +63,19 @@
                 this.$refs[formName].resetFields();
             },
             removeDomain(item) {
-                var index = this.dynamicValidateForm.domains.indexOf(item);
+                var index = this.newTrainingForm.exercise.indexOf(item);
                 if (index !== -1) {
-                    this.dynamicValidateForm.domains.splice(index, 1);
+                    this.newTrainingForm.exercise.splice(index, 1);
                 }
             },
             addDomain() {
-                this.dynamicValidateForm.domains.push({
-                    key: Date.now(),
-                    value: ''
+                this.newTrainingForm.exercise.push({
+                    timeEx: 0,
+                    nameEx: ''
                 });
             }
-        }
+        },
+
     }
 </script>
 
