@@ -100,6 +100,7 @@
                 this.showReset = true;
                     this.minutes = Math.floor(Number(((this.date) / 60) % 60));
                 this.seconds = Number((this.date) % 60);
+                clearInterval(this.interval);
                 this.message = default_title;
             }
         },

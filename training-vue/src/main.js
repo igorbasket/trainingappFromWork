@@ -12,12 +12,14 @@ import UserPage from "./components/UserPage";
 import NewTraining from "./components/NewTraining";
 import TrainingDisplay from "./components/TrainingDisplay";
 import UserTrainingList from "./components/UserTrainingList";
+import en from "element-ui/lib/locale/lang/en";
 // import Timer3 from "./components/Timer3";
 
 Vue.config.productionTip = false;
-Vue.use(ElementUI);
+Vue.use(ElementUI, { locale: en });
 Vue.use(VueResource);
 Vue.use(VueRouter);
+
 
 const routes = [
   {path: "/", component: Home},
