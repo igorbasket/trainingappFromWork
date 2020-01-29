@@ -8,8 +8,9 @@
             <el-input v-model="newTrainingForm.nameTrain"/>
         </el-form-item>
 
-        <el-form-item label="Rest duration">
-        <el-select v-model="valueMinutesRest" clearable placeholder="Select minutes" style="width: 400px">
+<!--        <el-form-item label="Rest duration">-->
+        <strong>Rest duration</strong>
+        <el-select v-model="valueMinutesRest" clearable placeholder="Select minutes" style="width: 145px">
             <el-option
                     v-for="item in optionsMinutes"
                     :key="item.value"
@@ -17,7 +18,8 @@
                     :value="item.value">
             </el-option>
         </el-select>
-        <el-select v-model="valueSecondsRest"  clearable placeholder="Select seconds" style="width: 400px">
+        <span class="mid" id="middlee">:</span>
+        <el-select v-model="valueSecondsRest"  clearable placeholder="Select seconds" style="width: 153px">
             <el-option
                     v-for="item in optionsSeconds"
                     :key="item.value"
@@ -25,17 +27,17 @@
                     :value="item.value">
             </el-option>
         </el-select>
-        </el-form-item>
+<!--        </el-form-item>-->
 
 
         <el-form-item
                 v-for="(domain, index) in newTrainingForm.exercise"
-                :label="'Exercise ' + index "
                 :key="domain.key"
                 :rules="{
       required: true, message: 'Exercise can not be empty', trigger: 'blur'
     }"
         >
+            <strong>Exercise {{index + 1}}</strong>
             <el-input placeholder="Input exercise name" v-model="domain.nameEx"/>
 
 <!--            <el-time-picker placeholder="Pick exercise duration" v-model="domain.timeEx" style="width: 100%;"/>-->
@@ -107,9 +109,9 @@
             addDomain() {
                 this.newTrainingForm.exercise.push({
                     timeEx: 0,
-                    nameEx: ''
+                    nameEx: '',
                 });
-                this.valueMinutes = '';
+                // this.valueMinutes = '';
             },
             exerciseCount () {
                 this.counterEx = 1
@@ -124,7 +126,6 @@
                     }],
                     nameTrain: ''
                 },
-                counterEx: 0,
                 valueMinutes: 0,
                 valueSeconds: 0,
                 valueMinutesRest: '',
@@ -507,6 +508,10 @@
 
     .mid{
         font-weight: bolder;
+    }
+    strong{
+        color: rgba(12,12,12,0.68);
+        float: left
     }
 
 </style>

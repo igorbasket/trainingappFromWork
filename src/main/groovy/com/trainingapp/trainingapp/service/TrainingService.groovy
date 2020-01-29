@@ -19,4 +19,12 @@ class TrainingService {
                 .findByUserName(name)
                 .collect{ new TrainingDTO(name:it.name, trainingDuration:it.trainingDuration)}
     }
+
+    List<TrainingDTO> trainingByEmail(String email) {
+        trainingRepository
+                          .findByUserEmail(email)
+                          .collect{ new TrainingDTO(name:it.name, trainingDuration:it.trainingDuration)}
+
+
+    }
 }

@@ -1,12 +1,20 @@
 <template>
     <div>
-        <li v-for="elem in exercise.items" :key="elem.message">
-            {{elem.message}}
-        </li>
-        <div>
-            {{this.exercise.displayEx}}
-        </div>
-            <CountdownTimer class="time" :date="exercise.time" :data-timeout="exercise.timeout"></CountdownTimer>
+        <CountdownTimer class="time" :date="exercise.time" :data-timeout="exercise.timeout"></CountdownTimer>
+
+        <el-carousel :interval="1000" arrow="always" loop="false">
+            <el-carousel-item v-for="elem in exercise.items" :key="elem.message">
+                <h3>{{ elem.message }}</h3>
+            </el-carousel-item>
+        </el-carousel>
+
+<!--        <li v-for="elem in exercise.items" :key="elem.message">-->
+<!--            {{elem.message}}-->
+<!--        </li>-->
+<!--        <div>-->
+<!--            {{this.exercise.displayEx}}-->
+<!--        </div>-->
+
 <!--        <CountdownTimer></CountdownTimer>-->
         <small class="tet-muted">Data: {{this.exercise.displayEx}}</small>
     </div>
@@ -17,6 +25,7 @@
     import CountdownTimer from './Timer3.vue'
 
     export default {
+
         name: "TrainingDisplay",
         components: {
             CountdownTimer,
@@ -24,7 +33,7 @@
         data() {
             return {
                 exercise: {
-                    time: '235',
+                    time: '10',
                     timeout: '10.00',
                     items: [
                         { message: 'Exercise 1' },
@@ -33,7 +42,7 @@
                         { message: 'Exercise 4' },
                         { message: 'Exercise 5' }
                 ],
-                    displayEx: ''
+                    displayEx: 10000
                 }
             };
 
@@ -71,5 +80,20 @@
 </script>
 
 <style scoped>
+    .el-carousel__item h3 {
+        color: #475669;
+        font-size: 70px;
+        opacity: 0.75;
+        line-height: 300px;
+        margin: 0;
+    }
 
+    .el-carousel__item:nth-child(2n) {
+        background-color: #DDDDDD;
+        height:
+    }
+
+    .el-carousel__item:nth-child(2n+1) {
+        background-color: antiquewhite;
+    }
 </style>
