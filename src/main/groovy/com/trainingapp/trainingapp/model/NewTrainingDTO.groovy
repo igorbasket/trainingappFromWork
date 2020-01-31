@@ -1,14 +1,15 @@
 package com.trainingapp.trainingapp.model
 
-import com.trainingapp.trainingapp.domain.Exercise
-
 import java.time.LocalDateTime
 
 class NewTrainingDTO {
+
     String name
 
-    LocalDateTime data
+    String email
 
-    List<Exercise> exercise = []
+    List<ExerciseDTO> listExerciseDto
+
+
 
 }

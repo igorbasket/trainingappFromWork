@@ -54,4 +54,10 @@ class UserService {
                                 weight:val.weight))
     }
 
+    String deleteUser(String email) {
+        userRepository.deleteByEmail(email)
+        return "user deleted"
+
+
+    }
 }

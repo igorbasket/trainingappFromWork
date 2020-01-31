@@ -1,4 +1,3 @@
-
 package com.trainingapp.trainingapp.repository
 
 import com.trainingapp.trainingapp.domain.Training
