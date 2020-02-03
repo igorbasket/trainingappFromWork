@@ -1,8 +1,10 @@
 package com.trainingapp.trainingapp.service
 
+import com.trainingapp.trainingapp.domain.Training
 import com.trainingapp.trainingapp.domain.User
 import com.trainingapp.trainingapp.model.NewUserDTO
 import com.trainingapp.trainingapp.model.UserDTO
+import com.trainingapp.trainingapp.repository.TrainingRepository
 import com.trainingapp.trainingapp.repository.UserRepository
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service
 class UserService {
 
 @Autowired UserRepository userRepository
+@Autowired TrainingRepository trainingRepository
 
      List<UserDTO> getUsers() {
         userRepository
@@ -54,10 +57,12 @@ class UserService {
                                 weight:val.weight))
     }
 
-    String deleteUser(String email) {
-        userRepository.deleteByEmail(email)
-        return "user deleted"
+        String deleteUser(String email) {
+            User userForDel = userRepository.findUserByEmail(email)
 
 
-    }
+            return "deleted"
+
+        }
+
 }

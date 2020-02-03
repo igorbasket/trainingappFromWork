@@ -2,6 +2,7 @@ package com.trainingapp.trainingapp.service
 
 import com.trainingapp.trainingapp.domain.Exercise
 import com.trainingapp.trainingapp.domain.Training
+import com.trainingapp.trainingapp.model.ExerciseDTO
 import com.trainingapp.trainingapp.model.NewTrainingDTO
 import com.trainingapp.trainingapp.model.TrainingDTO
 import com.trainingapp.trainingapp.model.UserDTO
@@ -55,4 +56,29 @@ class TrainingService {
 
         Optional.of(newTraining)
     }
+
+    List<ExerciseDTO> trainingByName(String name) {
+        exerciseRepository
+                        .findByTrainingName(name)
+                        .collect{ new ExerciseDTO(name:it.name,
+                                                  description: it.description,
+                                                  time: it.time)}
+    }
+
+    Optional<NewTrainingDTO> addOrCreateTraining(NewTrainingDTO newTrainingDTO) {
+        def val = exerciseRepository.findByTrainingName(newTrainingDTO.name)
+        if (val == null) {
+            log.info "Training not found"
+            addTraining(newTrainingDTO)
+        } // удаляем упражнения и записываем новые
+
+
+        Optional.of(newTrainingDTO)
+    }
+
+//    String nameTraining(String name) {
+//        trainingRepository
+//                .findByTrainingName(name)
+//
+//    }
 }

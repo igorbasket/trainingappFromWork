@@ -50,9 +50,10 @@ class UserController {
                 .orElse(ResponseEntity.notFound().build())
     }
     @DeleteMapping('/del/{email}')
-    String deleteUserByEmail(@PathVariable('email') String email){
+    ResponseEntity deleteUserByEmail(@PathVariable('email') String email){
         userService
                     .deleteUser(email)
+        return ResponseEntity.noContent().build()
     }
 
 }

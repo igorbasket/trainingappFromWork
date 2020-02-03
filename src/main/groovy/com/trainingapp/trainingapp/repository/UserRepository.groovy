@@ -14,5 +14,6 @@ interface UserRepository extends JpaRepository<User, Integer> {
 
     User findUserByEmail(String s)
 
-    void deleteByEmail(String email)
+    void delete(User user)
+
 }
