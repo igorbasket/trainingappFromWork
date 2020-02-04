@@ -1,3 +1,4 @@
+
 package com.trainingapp.trainingapp.repository
 
 import com.trainingapp.trainingapp.domain.Training
@@ -9,5 +10,5 @@ interface TrainingRepository extends JpaRepository<Training, Long> {
 
     List<Training> findByUserEmail(String s)
 
-//    String findByTrainingName(String s)
+    Optional<Training> findByName(String s)
 }

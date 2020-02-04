@@ -39,7 +39,7 @@ class TrainingController {
     @GetMapping('/{nameTraining}/')
     List<ExerciseDTO> getTrainingByName (@PathVariable('nameTraining') String name){
         trainingService
-                    .trainingByName(name)
+                .trainingByName(name)
     }
 //
 //    @GetMapping('/searchName/{nameTraining}/')
@@ -59,7 +59,7 @@ class TrainingController {
     @PutMapping('/{nameTraining}/')
     ResponseEntity<NewTrainingDTO> createOrUpdTraining(@PathVariable('nameTraining') @RequestBody NewTrainingDTO training){
         trainingService
-                .addOrCreateTraining(training)
+                .updOrCreateTraining(training)
                 .map{ResponseEntity.ok(it)}
                 .orElse(ResponseEntity.notFound().build())
     }

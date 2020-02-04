@@ -22,6 +22,7 @@ class TrainingService {
     @Autowired TrainingRepository trainingRepository
     @Autowired UserRepository userRepository
     @Autowired ExerciseRepository exerciseRepository
+    @Autowired ExerciseService exerciseService
 
     List<TrainingDTO> trainingByUser(String name) {
         trainingRepository
@@ -43,42 +44,63 @@ class TrainingService {
                 .listExerciseDto
                 .each {it -> sum += it.time}
         def val = trainingRepository.save(new Training(
-                                                        name: newTraining.name,
-                                                        data: LocalDateTime.now(),
-                                                        trainingDuration: sum,
-                                                        user: userRepository.findUserByEmail(newTraining.email)))
-        val.exercise = newTraining
+                name: newTraining.name,
+                data: LocalDateTime.now(),
+                trainingDuration: sum,
+                user: userRepository.findUserByEmail(newTraining.email)))
+        val.exercise=newTraining
                 .listExerciseDto
                 .collect{it -> exerciseRepository.save(new Exercise(name: it.name,
-                                                                                description: it.description,
-                                                                                time: it.time,
-                                                                                training: val))}
+                        description: it.description,
+                        time: it.time,
+                        training: val))}
+
 
         Optional.of(newTraining)
     }
 
     List<ExerciseDTO> trainingByName(String name) {
         exerciseRepository
-                        .findByTrainingName(name)
-                        .collect{ new ExerciseDTO(name:it.name,
-                                                  description: it.description,
-                                                  time: it.time)}
+                .findByTrainingName(name)
+                .collect{ new ExerciseDTO(name:it.name,
+                        description: it.description,
+                        time: it.time)}
     }
 
-    Optional<NewTrainingDTO> addOrCreateTraining(NewTrainingDTO newTrainingDTO) {
-        def val = exerciseRepository.findByTrainingName(newTrainingDTO.name)
-        if (val == null) {
-            log.info "Training not found"
+    Optional<NewTrainingDTO> updOrCreateTraining(NewTrainingDTO newTrainingDTO) {
+        def val = trainingRepository.findByName(newTrainingDTO.name)
+        if (val.isPresent()) {
+            deleteOneTraining(val.get().name)
+            log.info "Training deleted"
             addTraining(newTrainingDTO)
-        } // удаляем упражнения и записываем новые
+        } else addTraining(newTrainingDTO)// удаляем упражнения и записываем новые
 
 
         Optional.of(newTrainingDTO)
     }
 
-//    String nameTraining(String name) {
-//        trainingRepository
-//                .findByTrainingName(name)
-//
-//    }
+    Optional<String> nameTraining(String name) {
+        trainingRepository
+                .findByName(name)
+                .map{Optional.of(it.name)}
+                .orElse(Optional.empty())
+
+    }
+    void deleteTraining(String email) {
+        def trainingForDel = trainingRepository
+                                                .findByUserEmail(email)
+            if(trainingForDel){
+                trainingForDel.each {it -> exerciseService.deleteExercise(it.name)}
+                trainingRepository.deleteAll(trainingForDel)
+        }
+    }
+    void deleteOneTraining(String name) {
+        def trainingForDel = trainingRepository
+                                                .findByName(name)
+        if(trainingForDel){
+            exerciseService.deleteExercise(name)
+            trainingRepository.delete(trainingForDel.get())
+        }
+    }
+
 }

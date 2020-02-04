@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping('/api/user')
 class UserController {
 
-@Autowired UserService userService
+    @Autowired UserService userService
     @GetMapping
     List<UserDTO> getAllUser(){
         userService.getUsers()
@@ -50,10 +50,10 @@ class UserController {
                 .orElse(ResponseEntity.notFound().build())
     }
     @DeleteMapping('/del/{email}')
-    ResponseEntity deleteUserByEmail(@PathVariable('email') String email){
+    void deleteUserByEmail(@PathVariable('email') String email){
         userService
-                    .deleteUser(email)
-        return ResponseEntity.noContent().build()
+                .deleteUser(email)
+
     }
 
 }
