@@ -1,12 +1,61 @@
 <template>
-    <div>
-    Список тренировок
+    <div id="table2">
+        <h1>Training List</h1>
+        <el-table :data="usersList" align="center" style="width: 100%">
+            <el-table-column
+                    prop="name"
+                    label="Name"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="trainingDuration"
+                    label="Training duration"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="data"
+                    label="Last use date"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    width="110">
+                <el-button class="selectBtn"
+                           type="success"
+                           @click="selectBtn"
+                >Select</el-button>
+            </el-table-column>
+            <el-table-column
+                    width="100">
+                <el-button type="primary" >Edit</el-button>
+            </el-table-column>
+        </el-table>
     </div>
 </template>
 
 <script>
     export default {
-        name: "UserTrainingList"
+        name: "UserTrainingList",
+         el: '#table2',
+        data() {
+            return {
+                usersList: []
+            }
+        },
+        mounted() {
+            this.$http.get('api/training/email/igorbasket@gmail.com/')
+                .then(response => {
+                    this.usersList = response.data
+                })
+                .catch(response => {
+                    //debugger
+                    alert(response.status)
+                })
+        },
+        methods:{
+            selectBtn(){
+
+            }
+        }
     }
 </script>
 

@@ -5,7 +5,7 @@
     <el-form :model="newTrainingForm" ref="newTrainingForm" class="demo-dynamic" style="width: 400px" >
         <el-form-item label="Training name"
                       :rules="{required: true, message: 'Exercise can not be null', trigger: 'blur'}">
-            <el-input v-model="newTrainingForm.nameTrain"/>
+            <el-input v-model="newTrainingForm.name"/>
         </el-form-item>
 
 <!--        <el-form-item label="Rest duration">-->
@@ -31,14 +31,16 @@
 
 
         <el-form-item
-                v-for="(domain, index) in newTrainingForm.exercise"
+                v-for="(domain, index) in newTrainingForm.listExerciseDto"
                 :key="domain.key"
+                v-bind:="sum"
                 :rules="{
       required: true, message: 'Exercise can not be empty', trigger: 'blur'
     }"
         >
             <strong>Exercise {{index + 1}}</strong>
             <el-input placeholder="Input exercise name" v-model="domain.nameEx"/>
+            <el-input placeholder="Input exercise description" v-model="domain.description"/>
 
 <!--            <el-time-picker placeholder="Pick exercise duration" v-model="domain.timeEx" style="width: 100%;"/>-->
 
@@ -85,51 +87,86 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
+
+                        this.$http.post('/api/training/newTraining',{
+                            name: this.newTrainingForm.name,
+                            email: this.newTrainingForm.email,
+                            listExerciseDto: this.newTrainingForm.listExerciseDto,
+                        }).then(response => {
+                            let a = response.data;
+                            alert(a);
+                        })
                         alert('submit!');
                     } else {
                         alert('error submit!!');
                         return false;
                     }
                 });
+
             },
             // resetForm() {
-            //     this.newTrainingForm.exercise.timeEx = 0;
-            //     this.newTrainingForm.exercise.nameEx = '';
-            //     this.newTrainingForm.nameTrain = '';
+            //     this.newTrainingForm.listExerciseDto.timeEx = 0;
+            //     this.newTrainingForm.listExerciseDto.nameEx = '';
+            //     this.newTrainingForm.name = '';
             // },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             },
             removeDomain(item) {
-                let index = this.newTrainingForm.exercise.indexOf(item);
+                let index = this.newTrainingForm.listExerciseDto.indexOf(item);
                 if (index !== -1) {
-                    this.newTrainingForm.exercise.splice(index, 1);
+                    this.newTrainingForm.listExerciseDto.splice(index, 1);
                 }
+                this.index--
             },
             addDomain() {
-                this.newTrainingForm.exercise.push({
+                this.index++
+                this.newTrainingForm.listExerciseDto.push({
                     timeEx: 0,
                     nameEx: '',
+                    description: ''
                 });
+
                 // this.valueMinutes = '';
             },
             exerciseCount () {
                 this.counterEx = 1
             }
         },
+        computed:{
+             // sum(){
+             //     let sum = 0
+             //     let minutes = this.valueMinutes * 60
+             //     let seconds = this.valueSeconds
+             //
+             //     sum = minutes + seconds
+             //     // this.newTrainingForm.listExerciseDto[this.index].timeEx
+             //    return sum
+             //
+             // },
+          // btnText(){
+          //       return this.showH2 ? 'Hide result' : 'Show result';
+          //   },
+          // done(){
+          //      return this.numbers.length >= this.maxNumbers;
+          //    }
+        },
         data() {
             return {
                 newTrainingForm: {
-                    exercise: [{
+                    name: '',
+                    email: 'igorbasket@gmail.com',
+                    listExerciseDto: [{
                         timeEx: 0,
                         nameEx: '',
-                    }],
-                    nameTrain: ''
+                        description: ''
+                    }]
                 },
                 valueMinutes: 0,
                 valueSeconds: 0,
                 valueMinutesRest: '',
                 valueSecondsRest: '',
+                index: 0,
 
                 optionsMinutes: [{
                     value: 0,

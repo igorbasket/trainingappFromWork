@@ -33,7 +33,7 @@ class TrainingService {
     List<TrainingDTO> trainingByEmail(String email) {
         trainingRepository
                 .findByUserEmail(email)
-                .collect{ new TrainingDTO(name:it.name, trainingDuration:it.trainingDuration)}
+                .collect{ new TrainingDTO(name:it.name, trainingDuration:it.trainingDuration, data: "data")}
 
 
     }

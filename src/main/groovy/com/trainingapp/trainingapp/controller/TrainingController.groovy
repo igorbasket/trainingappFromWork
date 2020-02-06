@@ -56,8 +56,8 @@ class TrainingController {
                 .orElse(ResponseEntity.notFound().build())
 
     }
-    @PutMapping('/{nameTraining}/')
-    ResponseEntity<NewTrainingDTO> createOrUpdTraining(@PathVariable('nameTraining') @RequestBody NewTrainingDTO training){
+    @PutMapping('/updateTraining/')
+    ResponseEntity<NewTrainingDTO> createOrUpdTraining(@RequestBody NewTrainingDTO training){
         trainingService
                 .updOrCreateTraining(training)
                 .map{ResponseEntity.ok(it)}
