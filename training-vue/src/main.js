@@ -9,10 +9,11 @@ import Home from "./components/Home"
 import Registration from "./components/Registration";
 import Login from "./components/Login";
 import UserPage from "./components/UserPage";
-import NewTraining from "./components/NewTraining";
+// import NewTraining from "./components/NewTraining";
 import TrainingDisplay from "./components/TrainingDisplay";
 import UserTrainingList from "./components/UserTrainingList";
 import en from "element-ui/lib/locale/lang/en";
+import CreateNewTraining from "./components/CreateNewTraining";
 // import Timer3 from "./components/Timer3";
 
 Vue.config.productionTip = false;
@@ -27,7 +28,7 @@ const routes = [
   {path: "/registration", component: Registration},
   {path: "/login", component: Login},
   {path: "/user_page", component: UserPage},
-  {path: "/new_train", component: NewTraining},
+  {path: "/new_train", component: CreateNewTraining},
   {path: "/train_display", component: TrainingDisplay},
   {path: "/user_training_list", component: UserTrainingList}
   // {path: "/timer3", component: Timer3}
