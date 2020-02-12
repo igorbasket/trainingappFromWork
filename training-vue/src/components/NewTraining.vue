@@ -31,15 +31,14 @@
 
 
         <el-form-item
-                v-for="(domain, index) in newTrainingForm.listExerciseDto"
+                v-for="(domain, index) in newTrainingForm.listExercise"
                 :key="domain.key"
-                v-bind:="sum"
                 :rules="{
       required: true, message: 'Exercise can not be empty', trigger: 'blur'
     }"
         >
             <strong>Exercise {{index + 1}}</strong>
-            <el-input placeholder="Input exercise name" v-model="domain.nameEx"/>
+            <el-input placeholder="Input exercise name" v-model="domain.name"/>
             <el-input placeholder="Input exercise description" v-model="domain.description"/>
 
 <!--            <el-time-picker placeholder="Pick exercise duration" v-model="domain.timeEx" style="width: 100%;"/>-->
@@ -67,8 +66,8 @@
         </el-form-item>
 
         <el-form-item>
-            <el-button type="success" @click="submitForm('newTrainingForm')">Creat</el-button>
-            <el-button type="primary" @click="addDomain">New exercise</el-button>
+            <el-button v-bind="createTrain" type="success" @click="submitForm('newTrainingForm')">Creat</el-button>
+            <el-button v-bind="createTrain" type="primary" @click="addDomain('newTrainingForm')">New exercise</el-button>
             <el-button @click="resetForm('newTrainingForm')">Reset</el-button>
         </el-form-item>
         <small class="tet-muted">Data: {{newTrainingForm}}</small>
@@ -85,13 +84,21 @@
         name: "NewTraining",
         methods: {
             submitForm(formName) {
+               // let sum = (this.newTrainingForm.listExercise.valueMinutes * 60) + this.newTrainingForm.listExercise.valueSeconds
+
+               // let add = {name: this.newTrainingForm.listExercise.name,
+                //    description: this.newTrainingForm.listExercise.description,
+                //    time: 0}
+
+                this.listExerciseDto.push({name: this.newTrainingForm.listExercise.name, description: this.newTrainingForm.listExercise.description, time: 0})
+
+
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-
                         this.$http.post('/api/training/newTraining',{
                             name: this.newTrainingForm.name,
                             email: this.newTrainingForm.email,
-                            listExerciseDto: this.newTrainingForm.listExerciseDto,
+                            listExerciseDto: this.newTrainingForm,
                         }).then(response => {
                             let a = response.data;
                             alert(a);
@@ -113,27 +120,44 @@
                 this.$refs[formName].resetFields();
             },
             removeDomain(item) {
-                let index = this.newTrainingForm.listExerciseDto.indexOf(item);
+                let index = this.newTrainingForm.listExercise.indexOf(item);
                 if (index !== -1) {
-                    this.newTrainingForm.listExerciseDto.splice(index, 1);
+                    this.newTrainingForm.listExercise.splice(index, 1);
                 }
                 this.index--
             },
             addDomain() {
-                this.index++
-                this.newTrainingForm.listExerciseDto.push({
-                    timeEx: 0,
-                    nameEx: '',
-                    description: ''
-                });
+                //let sum = (this.newTrainingForm.listExercise.valueMinutes * 60) + this.newTrainingForm.listExercise.valueSeconds
 
-                // this.valueMinutes = '';
+               // let add = {name: this.newTrainingForm.listExercise.name, description: this.newTrainingForm.listExercise.description, time: 0};
+
+                this.listExerciseDto.push({name: this.newTrainingForm.listExercise.name, description: this.newTrainingForm.listExercise.description, time: 0})
+
+
+                this.index++
+                this.newTrainingForm.listExercise.push({
+                    name: '',
+                    description: '',
+                    valueMinutes: 0,
+                    valueSeconds: 0,
+                });
+            },
+            createTrain(){
+
+                //let sum = (this.newTrainingForm.listExercise.valueMinutes * 60) + this.newTrainingForm.listExercise.valueSeconds
+
+                let add = {name: this.newTrainingForm.listExercise.name,
+                    description: this.newTrainingForm.listExercise.description,
+                    time: 0}
+
+                this.listExerciseDto.push(add)
             },
             exerciseCount () {
                 this.counterEx = 1
             }
         },
         computed:{
+
              // sum(){
              //     let sum = 0
              //     let minutes = this.valueMinutes * 60
@@ -156,14 +180,15 @@
                 newTrainingForm: {
                     name: '',
                     email: 'igorbasket@gmail.com',
-                    listExerciseDto: [{
-                        timeEx: 0,
-                        nameEx: '',
-                        description: ''
+                    listExercise: [{
+                        name: '',
+                        description: '',
+                        valueMinutes: 0,
+                        valueSeconds: 0,
                     }]
                 },
-                valueMinutes: 0,
-                valueSeconds: 0,
+                listExerciseDto: [],
+                time: 0,
                 valueMinutesRest: '',
                 valueSecondsRest: '',
                 index: 0,

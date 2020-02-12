@@ -28,6 +28,12 @@
                     width="100">
                 <el-button type="primary" >Edit</el-button>
             </el-table-column>
+            <el-table-column
+                    width="110">
+                <el-button class="selectBtn"
+                           type="danger"
+                >Select</el-button>
+            </el-table-column>
         </el-table>
     </div>
 </template>
