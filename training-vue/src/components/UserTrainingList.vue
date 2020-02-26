@@ -1,7 +1,7 @@
 <template>
     <div id="table2">
         <h1>Training List</h1>
-        <el-table :data="usersList" align="center" style="width: 100%">
+        <el-table :data="userTrainings" align="center" style="width: 100%">
             <el-table-column
                     prop="name"
                     label="Name"
@@ -44,13 +44,13 @@
          el: '#table2',
         data() {
             return {
-                usersList: []
+                userTrainings: []
             }
         },
         mounted() {
             this.$http.get('api/training/email/igorbasket@gmail.com/')
                 .then(response => {
-                    this.usersList = response.data
+                    this.userTrainings = response.data
                 })
                 .catch(response => {
                     //debugger

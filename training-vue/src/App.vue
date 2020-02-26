@@ -7,7 +7,9 @@
     <hr>
 <!--    <router-link to="/">Home</router-link> <router-link to="/users">UsersList</router-link> -->
     <h1></h1>
-    <router-view></router-view>
+    <transition name="fade" mode="out-in">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -22,6 +24,7 @@
 <!--</script>-->
 
 <script>
+
   export default {
     data() {
       return {}
@@ -42,4 +45,12 @@
   body{
     background: lightcyan;
   }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .3s ease-out;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
+
 </style>

@@ -48,7 +48,9 @@
                         v-for="item in optionsMinutes"
                         :key="item.value"
                         :label="item.label"
-                        :value="item.value">
+                        :value="item.value"
+                        v-bind="createTrain"
+                >
                 </el-option>
             </el-select>
             <span class="mid" id="middle">:</span>
@@ -57,7 +59,9 @@
                         v-for="item in optionsSeconds"
                         :key="item.value"
                         :label="item.label"
-                        :value="item.value">
+                        :value="item.value"
+                        v-bind="createTrain"
+                        >
                 </el-option>
             </el-select>
 
@@ -70,7 +74,7 @@
             <el-button v-bind="createTrain" type="primary" @click="addDomain('newTrainingForm')">New exercise</el-button>
             <el-button @click="resetForm('newTrainingForm')">Reset</el-button>
         </el-form-item>
-        <small class="tet-muted">Data: {{newTrainingForm}}</small>
+        <small class="tet-muted">Data: {{this.sum}}</small>
     </el-form>
 
 
@@ -127,13 +131,6 @@
                 this.index--
             },
             addDomain() {
-                //let sum = (this.newTrainingForm.listExercise.valueMinutes * 60) + this.newTrainingForm.listExercise.valueSeconds
-
-               // let add = {name: this.newTrainingForm.listExercise.name, description: this.newTrainingForm.listExercise.description, time: 0};
-
-                this.listExerciseDto.push({name: this.newTrainingForm.listExercise.name, description: this.newTrainingForm.listExercise.description, time: 0})
-
-
                 this.index++
                 this.newTrainingForm.listExercise.push({
                     name: '',
@@ -144,11 +141,12 @@
             },
             createTrain(){
 
-                //let sum = (this.newTrainingForm.listExercise.valueMinutes * 60) + this.newTrainingForm.listExercise.valueSeconds
+                let sum = (this.newTrainingForm.listExercise.valueMinutes * 60) + this.newTrainingForm.listExercise.valueSeconds
+
 
                 let add = {name: this.newTrainingForm.listExercise.name,
                     description: this.newTrainingForm.listExercise.description,
-                    time: 0}
+                    time: sum}
 
                 this.listExerciseDto.push(add)
             },
@@ -157,8 +155,13 @@
             }
         },
         computed:{
+            sum() {
+                return this.newTrainingForm.listExercise.valueMinutes * 60
+            }
 
              // sum(){
+
+
              //     let sum = 0
              //     let minutes = this.valueMinutes * 60
              //     let seconds = this.valueSeconds
@@ -168,12 +171,7 @@
              //    return sum
              //
              // },
-          // btnText(){
-          //       return this.showH2 ? 'Hide result' : 'Show result';
-          //   },
-          // done(){
-          //      return this.numbers.length >= this.maxNumbers;
-          //    }
+
         },
         data() {
             return {

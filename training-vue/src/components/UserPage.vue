@@ -5,11 +5,11 @@
         <el-button type="primary" v-on:click.prevent="pushToUserTrainingList">My trainings</el-button>
         <h1></h1>
         <el-button type="primary" v-on:click.prevent="pushToNewTrain">Create a new workout</el-button>
-        <router-view></router-view>
     </div>
 </template>
 
 <script>
+
 
     export default {
         name: "UserPage",
@@ -18,7 +18,7 @@
                 this.$router.push('/new_train')
             },
             pushToUserTrainingList: function () {
-                this.$router.push('/user_training_list')
+                this.$router.push('/user_training_list2')
             },
         }
     }

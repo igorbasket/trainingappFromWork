@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
+//import Axios from "axios";
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import UsersList from "./components/UsersList"
@@ -13,13 +14,15 @@ import NewTraining from "./components/NewTraining";
 import TrainingDisplay from "./components/TrainingDisplay";
 import UserTrainingList from "./components/UserTrainingList";
 import en from "element-ui/lib/locale/lang/en";
+import TrainingsTable from "./components/TrainingsTable";
 //import CreateNewTraining from "./components/CreateNewTraining";
-// import Timer3 from "./components/Timer3";
+//import Timer3 from "./components/Timer3";
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI, { locale: en });
 Vue.use(VueResource);
 Vue.use(VueRouter);
+
 
 
 const routes = [
@@ -29,8 +32,9 @@ const routes = [
   {path: "/login", component: Login},
   {path: "/user_page", component: UserPage},
   {path: "/new_train", component: NewTraining},
-  {path: "/train_display", component: TrainingDisplay},
-  {path: "/user_training_list", component: UserTrainingList}
+  {path: "/train_display", name:"train_display", component: TrainingDisplay, props: true},
+  {path: "/user_training_list", component: UserTrainingList},
+  {path: "/user_training_list2", component: TrainingsTable},
   // {path: "/timer3", component: Timer3}
 ];
 
@@ -38,6 +42,8 @@ const router = new VueRouter({
   routes,
   mode: "history" //remove "#" from URL
 });
+
+
 
 new Vue({
   el: '#app',

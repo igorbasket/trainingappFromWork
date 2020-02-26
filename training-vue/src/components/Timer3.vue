@@ -91,14 +91,14 @@
             },
             pauseTimer: function(){
                 this.showReset = true;
-                    this.showContinue = true;
+                this.showContinue = true;
                 this.message = 'Never quit, keep going!!';
                 clearInterval(this.interval);
             },
             resetTimer: function(){
                 this.showContinue = true;
                 this.showReset = true;
-                    this.minutes = Math.floor(Number(((this.date) / 60) % 60));
+                this.minutes = Math.floor(Number(((this.date) / 60) % 60));
                 this.seconds = Number((this.date) % 60);
                 clearInterval(this.interval);
                 this.message = default_title;

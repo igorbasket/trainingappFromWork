@@ -1,12 +1,13 @@
 <template>
     <div>
-        <CountdownTimer class="time" :date="exercise.time" :data-timeout="exercise.timeout"></CountdownTimer>
+        <small class="tet-muted">Data: {{this.exercise.time}}</small>
+<!--        <CountdownTimer class="time" :date="exercise.time" :data-timeout="exercise.timeout"></CountdownTimer>-->
 
-        <el-carousel :interval="1000" arrow="always" loop="false">
-            <el-carousel-item v-for="elem in exercise.items" :key="elem.message">
-                <h3>{{ elem.message }}</h3>
-            </el-carousel-item>
-        </el-carousel>
+<!--        <el-carousel :interval="1000" arrow="always" loop="false">-->
+<!--            <el-carousel-item v-for="elem in exercise.items" :key="elem.message">-->
+<!--                <h3>{{ elem.message }}</h3>-->
+<!--            </el-carousel-item>-->
+<!--        </el-carousel>-->
 
 <!--        <li v-for="elem in exercise.items" :key="elem.message">-->
 <!--            {{elem.message}}-->
@@ -16,24 +17,25 @@
 <!--        </div>-->
 
 <!--        <CountdownTimer></CountdownTimer>-->
-        <small class="tet-muted">Data: {{this.exercise.displayEx}}</small>
+
     </div>
 </template>
 
 <script>
     // import CountdownTimer from './Timer.vue'
-    import CountdownTimer from './Timer3.vue'
+ //   import CountdownTimer from './Timer3.vue'
 
     export default {
 
         name: "TrainingDisplay",
         components: {
-            CountdownTimer,
+          //  CountdownTimer,
         },
+        props: ['ex'],
         data() {
             return {
                 exercise: {
-                    time: '10',
+                    time: this.ex,
                     timeout: '10.00',
                     items: [
                         { message: 'Exercise 1' },
