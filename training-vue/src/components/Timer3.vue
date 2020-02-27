@@ -1,4 +1,5 @@
 <template>
+    <div>
     <section id="app" class="hero is-warning is-fullheight is-bold">
         <div class="hero-body">
             <div class="container has-text-centered">
@@ -45,6 +46,7 @@
             </div>
         </div>
     </section>
+        </div>
 </template>
 
 <script>

@@ -67,16 +67,9 @@
             },
             selectRow(index, rows) {
                 this.training = (rows[index])
-                this.$http.get('api/training/' + this.training.name +'/')
-                    .then(response => {
-                        this.ex = response.data
-                    })
-                    .catch(response => {
-                        //debugger
-                        alert(response.status)
-                    })
-                //let str = "this.ex"
-                this.$router.push({name: 'train_display', params: {ex: true}})
+
+                let str = this.training.name
+                this.$router.push({name: 'train_display', params: {ex: str}})
             },
         },
         data() {

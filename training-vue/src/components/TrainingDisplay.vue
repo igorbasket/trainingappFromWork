@@ -1,13 +1,13 @@
 <template>
     <div>
-        <small class="tet-muted">Data: {{this.exercise.time}}</small>
+        <small class="tet-muted">Data: {{this.myTrain}}</small>
 <!--        <CountdownTimer class="time" :date="exercise.time" :data-timeout="exercise.timeout"></CountdownTimer>-->
 
-<!--        <el-carousel :interval="1000" arrow="always" loop="false">-->
-<!--            <el-carousel-item v-for="elem in exercise.items" :key="elem.message">-->
-<!--                <h3>{{ elem.message }}</h3>-->
-<!--            </el-carousel-item>-->
-<!--        </el-carousel>-->
+        <el-carousel :interval="5000" arrow="always">
+            <el-carousel-item v-for="elem in this.myTrain" :key="elem.message">
+                <h3>{{ elem.name }}</h3>
+            </el-carousel-item>
+        </el-carousel>
 
 <!--        <li v-for="elem in exercise.items" :key="elem.message">-->
 <!--            {{elem.message}}-->
@@ -16,26 +16,26 @@
 <!--            {{this.exercise.displayEx}}-->
 <!--        </div>-->
 
-<!--        <CountdownTimer></CountdownTimer>-->
+        <CountdownTimer></CountdownTimer>
 
     </div>
 </template>
 
 <script>
-    // import CountdownTimer from './Timer.vue'
- //   import CountdownTimer from './Timer3.vue'
+     // import CountdownTimer from './Timer.vue'
+    import CountdownTimer from './Timer2.vue'
 
     export default {
 
         name: "TrainingDisplay",
         components: {
-          //  CountdownTimer,
+            CountdownTimer,
         },
         props: ['ex'],
         data() {
             return {
                 exercise: {
-                    time: this.ex,
+                    time: '12',
                     timeout: '10.00',
                     items: [
                         { message: 'Exercise 1' },
@@ -45,7 +45,8 @@
                         { message: 'Exercise 5' }
                 ],
                     displayEx: 10000
-                }
+                },
+                myTrain: null
             };
 
         },
@@ -71,8 +72,17 @@
             }
         },
         mounted() {
-            this.exerciseArray()
+            // this.exerciseArray()
 
+
+            this.$http.get('api/training/' + this.ex +'/')
+                .then(response => {
+                    this.myTrain = response.data
+                })
+                .catch(response => {
+                    //debugger
+                    alert(response.status)
+                })
             // this.items.forEach(function(item){
             //     copy.push(item)
             // });
@@ -92,7 +102,6 @@
 
     .el-carousel__item:nth-child(2n) {
         background-color: #DDDDDD;
-        height:
     }
 
     .el-carousel__item:nth-child(2n+1) {
