@@ -52,18 +52,18 @@
         name: "TrainingsTable",
         methods: {
             deleteRow(index, rows) {
-                alert('deleted')
-                rows.splice(index, 1);
                 this.delTrain = (rows[index])
-                this.$http.delete('api/training/del/' + this.delTrain.name+'/')
+                this.$http.delete('api/training/del/'+this.delTrain.name)
                     .then(response => {
-                        alert(response.status)
+                        alert(response.status);
+                        rows.splice(index, 1);
+                        alert('Training deleted')
                     })
                     .catch(response => {
                         //debugger
                         alert(response.status)
-                    })
 
+                    })
             },
             selectRow(index, rows) {
                 this.training = (rows[index])

@@ -67,7 +67,7 @@
             return {
                 message: default_title,
                 minutes: Math.floor(Number(((this.date) / 60) % 60)),
-                seconds: Number((this.date) % 60),
+                seconds: Number(this.date % 60),
                 interval: null,
                 showContinue: true,
                 showReset: false
