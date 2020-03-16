@@ -31,7 +31,7 @@
         components: {
             CountdownTimer,
         },
-        props: ['ex'],
+        props: ['trName'],
         data() {
             return {
                 exercise: {
@@ -75,7 +75,7 @@
             // this.exerciseArray()
 
 
-            this.$http.get('api/training/' + this.ex +'/')
+            this.$http.get('api/training/' + this.trName +'/')
                 .then(response => {
                     this.myTrain = response.data
                 })

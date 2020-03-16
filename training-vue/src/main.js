@@ -12,9 +12,9 @@ import Login from "./components/Login";
 import UserPage from "./components/UserPage";
 import NewTraining from "./components/NewTraining";
 import TrainingDisplay from "./components/TrainingDisplay";
-import UserTrainingList from "./components/UserTrainingList";
 import en from "element-ui/lib/locale/lang/en";
 import TrainingsTable from "./components/TrainingsTable";
+import EditTraining from "./components/EditTraining";
 //import CreateNewTraining from "./components/CreateNewTraining";
 //import Timer3 from "./components/Timer3";
 
@@ -33,8 +33,8 @@ const routes = [
   {path: "/user_page", component: UserPage},
   {path: "/new_train", component: NewTraining},
   {path: "/train_display", name:"train_display", component: TrainingDisplay, props: true},
-  {path: "/user_training_list", component: UserTrainingList},
-  {path: "/user_training_list2", component: TrainingsTable},
+  {path: "/user_training_list", component: TrainingsTable},
+  {path: "/edit_training", name: "EditTraining", component: EditTraining, props: true}
   // {path: "/timer3", component: Timer3}
 ];
 

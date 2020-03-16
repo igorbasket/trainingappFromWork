@@ -75,7 +75,6 @@ class TrainingService {
             addTraining(newTrainingDTO)
         } else addTraining(newTrainingDTO)// удаляем упражнения и записываем новые
 
-
         Optional.of(newTrainingDTO)
     }
 

@@ -57,7 +57,7 @@ class TrainingController {
                 .orElse(ResponseEntity.notFound().build())
 
     }
-    @PutMapping('/updateTraining/')
+    @PostMapping('/updateTraining/') //must be put method
     ResponseEntity<NewTrainingDTO> createOrUpdTraining(@RequestBody NewTrainingDTO training){
         trainingService
                 .updOrCreateTraining(training)

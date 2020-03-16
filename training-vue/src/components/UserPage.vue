@@ -17,7 +17,7 @@
                 this.$router.push('/new_train')
             },
             pushToUserTrainingList: function () {
-                this.$router.push('/user_training_list2')
+                this.$router.push('/user_training_list')
             },
         }
     }
